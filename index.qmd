@@ -1,6 +1,6 @@
 ---
 title: "Yareli Rosales"
-image: media/headshot.jpeg
+image: Downloads/headshot.jpeg
 about: 
   template: jolla
   image-shape: rounded
@@ -10,7 +10,7 @@ about:
       href: https://www.linkedin.com/in/yareli-rosales-p
     - text: GitHub
       href: https://github.com/yareli-rosales
-    - text: Email 
+    - icon: envelope 
       href: mailto:yarelirosales.p@gmail.com
 ---
 
