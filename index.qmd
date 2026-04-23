@@ -7,7 +7,7 @@ about:
   image-width: 17em
   links: 
     - text: LinkedIn
-      href: www.linkedin.com/in/yareli-rosales-p
+      href: https://www.linkedin.com/in/yareli-rosales-p
     - text: GitHub
       href: https://github.com/yareli-rosales
     - text: Email 
