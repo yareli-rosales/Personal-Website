@@ -1,14 +1,22 @@
 ---
-title: "Personal Website"
+title: "Yareli Rosales"
+image: media/headshot.jpeg
+about: 
+  template: jolla
+  image-shape: rounded
+  image-width: 17em
+  links: 
+    - text: LinkedIn
+      href: www.linkedin.com/in/yareli-rosales-p
+    - text: GitHub
+      href: https://github.com/yareli-rosales
+    - text: Email 
+      href: mailto:yarelirosales.p@gmail.com
 ---
 
-This is a Quarto website.
+Hello! My name is Yareli Rosales. I am a sophomore Computer Science, Statistics 
+and Data Science major with a Business and Management studies concentration.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+I am interested in careers where business and tech intersect. In Data Science 2 
+which I took with Professor Joe Roith at St. Olaf College I learned many ...
 
-```{r}
-1 + 1
-```
-
-
-Hello! New changes
