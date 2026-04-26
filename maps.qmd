@@ -165,9 +165,10 @@ ggplot(merged_polygon,
   theme_void() + # Removes grid
   scale_fill_viridis_c() + #Used to apply color gradient 
   labs(
-    title = "Car Fatalities by State (2007)",
-    fill = "Fatalities"
-  )
+  title = "Car Fatalities by State (2007)",
+  fill = "Fatalities",
+  caption = "Source: poliscidata package (state-level data)"
+)
 
 ```
 
@@ -192,7 +193,11 @@ leaflet(merged_sf) |>
     fillOpacity = 0.7,
     # shows a popup when you hover over a state.
     label = ~paste(name, ": ", carfatal07) 
-  )
+  ) |>
+  addControl(
+  "Source: poliscidata package",
+  position = "bottomright"
+)
 ```
 
 
@@ -217,9 +222,10 @@ ggplot(merged_polygon,
   coord_map()+
   theme_void() +
   labs(
-    title = "Cook Political Index by State",
-    fill = "Category"
-  )
+  title = "Cook Political Index by State",
+  fill = "Category",
+  caption = "Source: poliscidata package (state-level data)"
+)
 ```
 
 
@@ -245,7 +251,11 @@ leaflet(merged_sf) |>
     weight = 1,
     fillOpacity = 0.7,
     label = ~paste(name, ": ", cook_index3)
-  )
+  ) |>
+  addControl(
+  "Source: poliscidata package",
+  position = "bottomright"
+)
 ```
 
 

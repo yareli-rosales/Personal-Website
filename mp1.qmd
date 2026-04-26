@@ -15,6 +15,11 @@ library(ggthemes)
 library(stringr)
 ```
 
+## Project Overview
+This project uses text analysis techniques in R to explore patterns in Amazon product reviews. 
+The analysis focuses on word frequency, sentiment, and common phrases to better understand 
+how customers describe their product experiences.
+
 ```{r}
 #| include: false
 reviews <- 
@@ -47,16 +52,31 @@ Specifically, this analysis explores the following questions:
   5. What common phrases appear in customer feedback?
 
 One limitation of this dataset is its small size and limited helpfulness votes. As a result, the analysis focuses primarily on language patterns and sentiment rather than strong conclusions about review helpfulness.
-  
-What brands and categories appear the most in the dataset?
 
+**Data Source:** Amazon Product Reviews Sample Dataset
+  
+## Most Common Brands and Categories
 ```{r}
+#| echo: false
+
 reviews_tidy |>
-  count(brand, sort = TRUE)
+  count(brand, sort = TRUE) |>
+  slice_max(n, n = 10) |>
+  ggplot(aes(reorder(brand, n), n)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Most Common Brands in Amazon Reviews",
+    x = "Brand",
+    y = "Number of Reviews"
+  ) +
+  theme_minimal()
 ```
 We see that most reviews in this dataset come from a small number of brands, suggesting the sample may be concentrated in a few product categories. Most reviews in the dataset come from a small number of brands, particularly Schmidt's Deodorant and SheaMoisture.
 
 ## String Functions 
+
+## Review Length Analysis
 How long are review titles and review texts?
 
 ```{r}
@@ -93,6 +113,7 @@ reviews_words_clean <- reviews_words |>
 ```
 Common words such as “the,” “and,” and “is” do not convey meaningful information in text analysis. These words are removed using a standard stop word list.
 
+## Most Common Words
 ```{r}
 #| echo: false
 reviews_words_clean |>
@@ -131,7 +152,7 @@ sentiment_words |>
 
 Sentiment analysis provides insight into the emotional tone of the reviews. The results suggest that positive words appear more frequently than negative words in this dataset, indicating that many customers express favorable experiences with the products they review.
 
-What phrases appear the most 
+## Common Phrases in Reviews
 ```{r}
 #| echo: false
 review_bigrams <- reviews_tidy |>

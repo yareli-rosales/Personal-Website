@@ -39,35 +39,70 @@
     "href": "index.html",
     "title": "Yareli Rosales",
     "section": "",
-    "text": "Hello! My name is Yareli Rosales. I am a sophomore Computer Science, Statistics and Data Science major with a Business and Management studies concentration.\nI am interested in careers where business and technology intersect. In Data Science II, which I took with Professor Roith at St. Olaf College, I developed skills in data analysis and working with real-world datasets. This experience strengthened my interest in using data to support decision-making and solve practical problems.\nThe code for the website can be found here"
+    "text": "Hello! My name is Yareli Rosales. I am a sophomore Computer Science, Statistics and Data Science major with a Business and Management studies concentration.\nI am interested in careers where business and technology intersect. In Data Science II, which I took with Professor Roith at St. Olaf College, I developed skills in data analysis and working with real-world datasets. This experience strengthened my interest in using data to support decision-making and solve practical problems.\nThe code for the website can be found here."
   },
   {
     "objectID": "mp1.html",
     "href": "mp1.html",
     "title": "Mini Project 1: Text Analysis",
     "section": "",
-    "text": "Amazon product reviews play an important role in how customers evaluate products online. Because these reviews are written in natural language, text analysis can help identify patterns in how customers describe products and express satisfaction or dissatisfaction.\nIn this analysis, I examine a dataset of Amazon product reviews containing information about ratings, brands, product descriptions, and review text. Using text analysis tools in R, I explore patterns in review language, sentiment, and structure.\nSpecifically, this analysis explores the following questions:\nOne limitation of this dataset is its small size and limited helpfulness votes. As a result, the analysis focuses primarily on language patterns and sentiment rather than strong conclusions about review helpfulness.\nWhat brands and categories appear the most in the dataset?\nreviews_tidy |&gt;\n  count(brand, sort = TRUE)\n\n# A tibble: 6 × 2\n  brand                   n\n  &lt;chr&gt;               &lt;int&gt;\n1 Schmidt's Deodorant    20\n2 SheaMoisture           15\n3 Talenti                 9\n4 Sir Kensingtons         4\n5 DOVE WOMENS DEO         1\n6 Starbucks               1\nWe see that most reviews in this dataset come from a small number of brands, suggesting the sample may be concentrated in a few product categories. Most reviews in the dataset come from a small number of brands, particularly Schmidt’s Deodorant and SheaMoisture."
+    "text": "This project uses text analysis techniques in R to explore patterns in Amazon product reviews. The analysis focuses on word frequency, sentiment, and common phrases to better understand how customers describe their product experiences.\nAmazon product reviews play an important role in how customers evaluate products online. Because these reviews are written in natural language, text analysis can help identify patterns in how customers describe products and express satisfaction or dissatisfaction.\nIn this analysis, I examine a dataset of Amazon product reviews containing information about ratings, brands, product descriptions, and review text. Using text analysis tools in R, I explore patterns in review language, sentiment, and structure.\nSpecifically, this analysis explores the following questions:\n\nWhat brands and product categories appear most often in the dataset?\nHow long are Amazon reviews?\nWhat words appear most frequently in reviews?\nWhat sentiment is expressed in review text?\nWhat common phrases appear in customer feedback?\n\nOne limitation of this dataset is its small size and limited helpfulness votes. As a result, the analysis focuses primarily on language patterns and sentiment rather than strong conclusions about review helpfulness.\nData Source: Amazon Product Reviews Sample Dataset"
+  },
+  {
+    "objectID": "mp1.html#project-overview",
+    "href": "mp1.html#project-overview",
+    "title": "Mini Project 1: Text Analysis",
+    "section": "",
+    "text": "This project uses text analysis techniques in R to explore patterns in Amazon product reviews. The analysis focuses on word frequency, sentiment, and common phrases to better understand how customers describe their product experiences.\nAmazon product reviews play an important role in how customers evaluate products online. Because these reviews are written in natural language, text analysis can help identify patterns in how customers describe products and express satisfaction or dissatisfaction.\nIn this analysis, I examine a dataset of Amazon product reviews containing information about ratings, brands, product descriptions, and review text. Using text analysis tools in R, I explore patterns in review language, sentiment, and structure.\nSpecifically, this analysis explores the following questions:\n\nWhat brands and product categories appear most often in the dataset?\nHow long are Amazon reviews?\nWhat words appear most frequently in reviews?\nWhat sentiment is expressed in review text?\nWhat common phrases appear in customer feedback?\n\nOne limitation of this dataset is its small size and limited helpfulness votes. As a result, the analysis focuses primarily on language patterns and sentiment rather than strong conclusions about review helpfulness.\nData Source: Amazon Product Reviews Sample Dataset"
+  },
+  {
+    "objectID": "mp1.html#most-common-brands-and-categories",
+    "href": "mp1.html#most-common-brands-and-categories",
+    "title": "Mini Project 1: Text Analysis",
+    "section": "Most Common Brands and Categories",
+    "text": "Most Common Brands and Categories\n\n\n\n\n\n\n\n\n\nWe see that most reviews in this dataset come from a small number of brands, suggesting the sample may be concentrated in a few product categories. Most reviews in the dataset come from a small number of brands, particularly Schmidt’s Deodorant and SheaMoisture."
   },
   {
     "objectID": "mp1.html#string-functions",
     "href": "mp1.html#string-functions",
     "title": "Mini Project 1: Text Analysis",
     "section": "String Functions",
-    "text": "String Functions\nHow long are review titles and review texts?\n\nreviews_tidy &lt;- reviews_tidy |&gt;\n  mutate(\n    title_length = str_length(review_title),\n    review_length = str_length(review_content))\n\nBecause reviews vary widely in length and writing style, the next step is to explore structural features of review text such as length and emotional expression.\n\nreviews_tidy |&gt;\n  ggplot(aes(x = review_length)) +\n  geom_histogram(bins = 20, fill = \"steelblue\", color = \"white\") +\n  labs(\n    title = \"Distribution of Amazon Review Lengths\",\n    x = \"Review Length (characters)\",\n    y = \"Number of Reviews\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nThe histogram above shows the distribution of review lengths in the dataset. Most reviews are relatively short, suggesting that many customers leave brief feedback rather than detailed explanations. However, a small number of longer reviews provide more extensive descriptions of product experiences.While review length provides information about structure, the actual language used in reviews can reveal deeper patterns about customer experiences. To examine the language used in reviews, the next step is to tokenize the review text into individual words."
+    "text": "String Functions"
+  },
+  {
+    "objectID": "mp1.html#review-length-analysis",
+    "href": "mp1.html#review-length-analysis",
+    "title": "Mini Project 1: Text Analysis",
+    "section": "Review Length Analysis",
+    "text": "Review Length Analysis\nHow long are review titles and review texts?\n\nreviews_tidy &lt;- reviews_tidy |&gt;\n  mutate(\n    title_length = str_length(review_title),\n    review_length = str_length(review_content))\n\nBecause reviews vary widely in length and writing style, the next step is to explore structural features of review text such as length and emotional expression.\n\nreviews_tidy |&gt;\n  ggplot(aes(x = review_length)) +\n  geom_histogram(bins = 20, fill = \"steelblue\", color = \"white\") +\n  labs(\n    title = \"Distribution of Amazon Review Lengths\",\n    x = \"Review Length (characters)\",\n    y = \"Number of Reviews\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nThe histogram above shows the distribution of review lengths in the dataset. Most reviews are relatively short, suggesting that many customers leave brief feedback rather than detailed explanations. However, a small number of longer reviews provide more extensive descriptions of product experiences.While review length provides information about structure, the actual language used in reviews can reveal deeper patterns about customer experiences. To examine the language used in reviews, the next step is to tokenize the review text into individual words."
   },
   {
     "objectID": "mp1.html#text-analysis",
     "href": "mp1.html#text-analysis",
     "title": "Mini Project 1: Text Analysis",
     "section": "Text Analysis",
-    "text": "Text Analysis\n\nreviews_words &lt;- reviews_tidy |&gt;\n  unnest_tokens(word, review_content)\n\nTo analyze the language used in reviews, I first tokenize the text into individual words using unnest_tokens(). This allows each word to be analyzed separately.\n\nreviews_words_clean &lt;- reviews_words |&gt;\n  anti_join(stop_words)\n\nJoining with `by = join_by(word)`\n\n\nCommon words such as “the,” “and,” and “is” do not convey meaningful information in text analysis. These words are removed using a standard stop word list.\n\n\n\n\n\n\n\n\n\nThe most common words in the reviews highlight recurring themes in customer feedback. Many of the frequently used words relate to product performance, effectiveness, and overall satisfaction. These patterns suggest that customers often focus on practical product outcomes when writing reviews."
+    "text": "Text Analysis\n\nreviews_words &lt;- reviews_tidy |&gt;\n  unnest_tokens(word, review_content)\n\nTo analyze the language used in reviews, I first tokenize the text into individual words using unnest_tokens(). This allows each word to be analyzed separately.\n\nreviews_words_clean &lt;- reviews_words |&gt;\n  anti_join(stop_words)\n\nJoining with `by = join_by(word)`\n\n\nCommon words such as “the,” “and,” and “is” do not convey meaningful information in text analysis. These words are removed using a standard stop word list."
+  },
+  {
+    "objectID": "mp1.html#most-common-words",
+    "href": "mp1.html#most-common-words",
+    "title": "Mini Project 1: Text Analysis",
+    "section": "Most Common Words",
+    "text": "Most Common Words\n\n\n\n\n\n\n\n\n\nThe most common words in the reviews highlight recurring themes in customer feedback. Many of the frequently used words relate to product performance, effectiveness, and overall satisfaction. These patterns suggest that customers often focus on practical product outcomes when writing reviews."
   },
   {
     "objectID": "mp1.html#text-analysis-method-2-sentiment-analysis",
     "href": "mp1.html#text-analysis-method-2-sentiment-analysis",
     "title": "Mini Project 1: Text Analysis",
     "section": "Text Analysis Method #2: Sentiment Analysis",
-    "text": "Text Analysis Method #2: Sentiment Analysis\n\n\nJoining with `by = join_by(word)`\n\n\n\nsentiment_words |&gt;\n  count(sentiment) |&gt;\n  ggplot(aes(sentiment, n, fill = sentiment)) +\n  geom_col(show.legend = FALSE) +\n  labs(\n    title = \"Sentiment Distribution in Amazon Reviews\",\n    x = \"Sentiment\",\n    y = \"Number of Words\"\n  )\n\n\n\n\n\n\n\n\nSentiment analysis provides insight into the emotional tone of the reviews. The results suggest that positive words appear more frequently than negative words in this dataset, indicating that many customers express favorable experiences with the products they review.\nWhat phrases appear the most\n\n\n# A tibble: 144 × 2\n   bigram                      n\n   &lt;chr&gt;                   &lt;int&gt;\n 1 natural deodorant           3\n 2 aluminum antiperspirant     2\n 3 aluminum free               2\n 4 fabulous fabulous           2\n 5 highly recommend            2\n 6 sensitive skin              2\n 7 10 15                       1\n 8 15 minutes                  1\n 9 3 weeks                     1\n10 6oz strong                  1\n# ℹ 134 more rows\n\n\nExamining common word pairs (bigrams) provides additional context beyond single-word analysis. These phrases reveal how customers naturally describe their experiences with products. Many of the most common bigrams involve product performance or descriptive language about effectiveness, suggesting that customers frequently focus on whether a product works as expected."
+    "text": "Text Analysis Method #2: Sentiment Analysis\n\n\nJoining with `by = join_by(word)`\n\n\n\nsentiment_words |&gt;\n  count(sentiment) |&gt;\n  ggplot(aes(sentiment, n, fill = sentiment)) +\n  geom_col(show.legend = FALSE) +\n  labs(\n    title = \"Sentiment Distribution in Amazon Reviews\",\n    x = \"Sentiment\",\n    y = \"Number of Words\"\n  )\n\n\n\n\n\n\n\n\nSentiment analysis provides insight into the emotional tone of the reviews. The results suggest that positive words appear more frequently than negative words in this dataset, indicating that many customers express favorable experiences with the products they review."
+  },
+  {
+    "objectID": "mp1.html#common-phrases-in-reviews",
+    "href": "mp1.html#common-phrases-in-reviews",
+    "title": "Mini Project 1: Text Analysis",
+    "section": "Common Phrases in Reviews",
+    "text": "Common Phrases in Reviews\n\n\n# A tibble: 144 × 2\n   bigram                      n\n   &lt;chr&gt;                   &lt;int&gt;\n 1 natural deodorant           3\n 2 aluminum antiperspirant     2\n 3 aluminum free               2\n 4 fabulous fabulous           2\n 5 highly recommend            2\n 6 sensitive skin              2\n 7 10 15                       1\n 8 15 minutes                  1\n 9 3 weeks                     1\n10 6oz strong                  1\n# ℹ 134 more rows\n\n\nExamining common word pairs (bigrams) provides additional context beyond single-word analysis. These phrases reveal how customers naturally describe their experiences with products. Many of the most common bigrams involve product performance or descriptive language about effectiveness, suggesting that customers frequently focus on whether a product works as expected."
   },
   {
     "objectID": "mp1.html#conclusion",
