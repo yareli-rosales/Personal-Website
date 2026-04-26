@@ -1,22 +1,21 @@
 ---
 title: "Yareli Rosales"
-image: Downloads/headshot.jpeg
+image: headshot.jpeg
 about: 
-  template: jolla
-  image-shape: rounded
+  template: trestles
+  image-shape: round
   image-width: 17em
   links: 
-    - text: LinkedIn
+    - icon: linkedin
       href: https://www.linkedin.com/in/yareli-rosales-p
-    - text: GitHub
+    - icon: github
       href: https://github.com/yareli-rosales
     - icon: envelope 
       href: mailto:yarelirosales.p@gmail.com
 ---
 
-Hello! My name is Yareli Rosales. I am a sophomore Computer Science, Statistics 
-and Data Science major with a Business and Management studies concentration.
+Hello! My name is Yareli Rosales. I am a sophomore Computer Science, Statistics and Data Science major with a Business and Management studies concentration.
 
-I am interested in careers where business and tech intersect. In Data Science 2 
-which I took with Professor Roith at St. Olaf College I learned many ...
+I am interested in careers where business and technology intersect. In Data Science II, which I took with Professor Roith at St. Olaf College, I developed skills in data analysis and working with real-world datasets. This experience strengthened my interest in using data to support decision-making and solve practical problems.
 
+The code for the website can be found [here](https://github.com/yareli-rosales/Personal-Website)

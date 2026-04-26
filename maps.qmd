@@ -1,0 +1,251 @@
+---
+title: "Informative Maps"
+format: html
+---
+
+```{r}
+#| message: false
+#| warning: false
+#| include: false
+
+# Initial packages required (we'll be adding more)
+library(tidyverse)
+library(mdsr)      # package associated with our MDSR book
+library(poliscidata)
+library(ggplot2)
+library(htmltools)
+library(glue)
+library(maps)
+library(viridis)
+library(statebins)
+library(leaflet)
+
+```
+
+
+```{r}
+#| include: false
+# Code from OYO #1 in 09_table_scraping.qmd
+
+library(rvest)
+library(polite)
+
+session <- bow("https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population_density", force = TRUE)
+
+result <- scrape(session) |>
+  html_nodes(css = "table") |> 
+  html_table(header = TRUE, fill = TRUE)
+density_table <- result[[1]]
+density_table
+
+density_data <- density_table |>
+  select(1, 2, 4, 5) |>
+  filter(!row_number() == 1) |>
+  rename(Land_area = `Land area`) |>
+  mutate(state_name = str_to_lower(as.character(Location)),
+         Density = parse_number(Density),
+         Population = parse_number(Population),
+         Land_area = parse_number(Land_area)) |>
+  select(-Location)
+
+density_data
+```
+
+
+
+```{r}
+#| message: false
+#| warning: false
+#| include: false
+
+# Get info to draw US states for geom_polygon (connect the lat-long points)
+library(maps)
+states_polygon <- as_tibble(map_data("state")) |>
+  select(region, group, order, lat, long)
+
+# See what the state (region) levels look like in states_polygon
+unique(states_polygon$region)
+
+
+# Get info to draw US states for geom_sf and leaflet (simple features object 
+#   with multipolygon geometry column)
+library(sf)
+states_sf <- 
+  read_sf("https://rstudio.github.io/leaflet/json/us-states.geojson") |>
+  select(name, geometry)
+
+# See what the state (name) levels look like in states_sf
+unique(states_sf$name)
+
+
+# Load in state-wise data for filling our choropleth maps
+#   (Note that I selected my two variables of interest to simplify)
+library(poliscidata)   # may have to install first
+polisci_data <- as_tibble(poliscidata::states) |>
+  select(state, carfatal07, cook_index3)
+
+# See what the state (state) levels look like in polisci_data
+unique(polisci_data$state)   # can't see trailing spaces but can see
+                             #   lack of internal spaces
+print(polisci_data)   # can see trailing spaces
+```
+
+
+```{r}
+#| include: false
+# Make sure all keys have the same format before joining:
+#   all lower case, no internal or external spaces
+library(dplyr)
+library(stringr)
+
+# Clean polisci data
+polisci_data_clean <- polisci_data |>
+  mutate(state = str_to_lower(str_squish(state)))
+
+# Clean polygon data (maps package)
+states_polygon_clean <- states_polygon |>
+  mutate(state = str_to_lower(str_squish(region)))
+
+# Clean sf data
+states_sf_clean <- states_sf |>
+  mutate(state = str_to_lower(str_squish(name)))
+
+```
+
+```{r}
+#| include: false
+# Now we can merge data sets together for the static and the interactive plots
+
+exclude <- c("alaska", "hawaii", "district of columbia")
+
+states_polygon_clean <- states_polygon_clean |>
+  filter(!state %in% exclude)
+
+states_sf_clean <- states_sf_clean |>
+  filter(!state %in% exclude)
+
+polisci_data_clean <- polisci_data_clean |>
+  filter(!state %in% exclude)
+
+
+# Merge with states_polygon (static)
+# Check that merge worked for 48 contiguous states
+
+merged_polygon <- states_polygon_clean |>
+  left_join(polisci_data_clean, by = "state")
+
+
+# Merge with states_sf (static or interactive)
+# Check that merge worked for 48 contiguous states
+# Use left join because even if data is missing the state border will remain
+merged_sf <- states_sf_clean |>
+  left_join(polisci_data_clean, by = "state")
+
+# To check if we have all 48 states
+merged_polygon |>
+  distinct(state) |>
+  count()
+
+
+```
+
+
+## Numeric variable (static plot):
+
+This map shows the distribution of car fatalities across states in 2007. States with darker colors have higher numbers of fatalities. The plot suggests that some regions, particularly more rural states, tend to have higher fatality counts than more densely populated states.
+
+```{r}
+#| echo: false
+
+# Fill states based on carfatal07
+ggplot(merged_polygon,
+       aes(x = long, y = lat, group = group, fill = carfatal07)) +
+  geom_polygon(color = "white") + # Draws each state shape 
+  coord_map() + # Removes the stretch of the map
+  theme_void() + # Removes grid
+  scale_fill_viridis_c() + #Used to apply color gradient 
+  labs(
+    title = "Car Fatalities by State (2007)",
+    fill = "Fatalities"
+  )
+
+```
+
+
+## Numeric variable (interactive plot):
+
+The interactive map allows users to hover over each state to see the exact number of car fatalities. This makes it easier to compare states and identify which states have the highest or lowest fatality counts.
+
+```{r}
+#| echo: FALSE
+# it's okay to skip a legend here
+
+# tells leaflet how to color
+pal <- colorNumeric("viridis", merged_sf$carfatal07)
+
+leaflet(merged_sf) |>
+  addTiles() |> # adds background map
+  addPolygons( # draws state and colors
+    fillColor = ~pal(carfatal07),
+    color = "white",
+    weight = 1,
+    fillOpacity = 0.7,
+    # shows a popup when you hover over a state.
+    label = ~paste(name, ": ", carfatal07) 
+  )
+```
+
+
+## Categorical variable (static plot):
+
+This map displays the Cook Political Index category for each state. States with the same color share the same political classification. The plot reveals regional patterns where neighboring states often fall into similar political categories.
+
+```{r}
+#| echo: false
+# be really careful with matching color order to factor level order
+
+# treat this variable as categories, not numbers
+merged_polygon$cook_index3 <-
+  factor(merged_polygon$cook_index3)
+
+ggplot(merged_polygon,
+       aes(x = long, 
+           y = lat, 
+           group = group, 
+           fill = cook_index3))+
+  geom_polygon(color = "white") +
+  coord_map()+
+  theme_void() +
+  labs(
+    title = "Cook Political Index by State",
+    fill = "Category"
+  )
+```
+
+
+## Categorical variable (interactive plot):
+
+The interactive categorical map allows users to hover over states to see their political classification. This helps identify geographic clustering of political categories and makes it easier to compare neighboring states.
+
+```{r}
+#| echo: FALSE
+# may use colorFactor() here
+
+# each category gets its own color
+pal_cat <- colorFactor(
+  "Set2",
+  merged_sf$cook_index3
+)
+
+leaflet(merged_sf) |>
+  addTiles() |>
+  addPolygons(
+    fillColor = ~pal_cat(cook_index3), # color each sstate based on its cateogry
+    color = "white",
+    weight = 1,
+    fillOpacity = 0.7,
+    label = ~paste(name, ": ", cook_index3)
+  )
+```
+
+

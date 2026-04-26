@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Yareli Rosales">
+<meta name="dcterms.date" content="2026-03-06">
 
-<title>Yareli Rosales – Personal Site</title>
+<title>Mini Project 1: Text Analysis – Personal Site</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -35,6 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -258,11 +296,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./mp1.html"> 
+    <a class="nav-link active" href="./mp1.html" aria-current="page"> 
 <span class="menu-text">Mini Project 1: Text Analysis</span></a>
   </li>  
   <li class="nav-item">
@@ -281,44 +319,193 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#string-functions" id="toc-string-functions" class="nav-link active" data-scroll-target="#string-functions">String Functions</a></li>
+  <li><a href="#text-analysis" id="toc-text-analysis" class="nav-link" data-scroll-target="#text-analysis">Text Analysis</a></li>
+  <li><a href="#text-analysis-method-2-sentiment-analysis" id="toc-text-analysis-method-2-sentiment-analysis" class="nav-link" data-scroll-target="#text-analysis-method-2-sentiment-analysis">Text Analysis Method #2: Sentiment Analysis</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<div class="quarto-about-trestles column-page">
-  <div class="about-entity">
-    <img src="headshot.jpeg" class="about-image
-  round " style="height: 17em; width: 17em;">
+<main class="content column-page-left" id="quarto-document-content">
+
+
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Yareli Rosales</h1>
+<h1 class="title">Mini Project 1: Text Analysis</h1>
+<p class="subtitle lead">What language patterns appear most frequently in Amazon product reviews, and what sentiment do these reviews express? A Text Analysis of Product Reviews</p>
 </div>
-<div class="quarto-title-meta column-page">
+
+
+
+<div class="quarto-title-meta column-page-left">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Yareli Rosales </p>
+          </div>
   </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 6, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
 </header>
-    <div class="about-links">
-  <a href="https://www.linkedin.com/in/yareli-rosales-p" class="about-link" rel="" target="">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text"></span>
-  </a>
-  <a href="https://github.com/yareli-rosales" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text"></span>
-  </a>
-  <a href="mailto:yarelirosales.p@gmail.com" class="about-link" rel="" target="">
-    <i class="bi bi-envelope"></i>
-     <span class="about-link-text"></span>
-  </a>
+
+
+<p>Amazon product reviews play an important role in how customers evaluate products online. Because these reviews are written in natural language, text analysis can help identify patterns in how customers describe products and express satisfaction or dissatisfaction.</p>
+<p>In this analysis, I examine a dataset of Amazon product reviews containing information about ratings, brands, product descriptions, and review text. Using text analysis tools in R, I explore patterns in review language, sentiment, and structure.</p>
+<p>Specifically, this analysis explores the following questions:</p>
+<ol type="1">
+<li>What brands and product categories appear most often in the dataset?</li>
+<li>How long are Amazon reviews?</li>
+<li>What words appear most frequently in reviews?</li>
+<li>What sentiment is expressed in review text?</li>
+<li>What common phrases appear in customer feedback?</li>
+</ol>
+<p>One limitation of this dataset is its small size and limited helpfulness votes. As a result, the analysis focuses primarily on language patterns and sentiment rather than strong conclusions about review helpfulness.</p>
+<p>What brands and categories appear the most in the dataset?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>reviews_tidy <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(brand, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  brand                   n
+  &lt;chr&gt;               &lt;int&gt;
+1 Schmidt's Deodorant    20
+2 SheaMoisture           15
+3 Talenti                 9
+4 Sir Kensingtons         4
+5 DOVE WOMENS DEO         1
+6 Starbucks               1</code></pre>
 </div>
-  </div>
-  <div class="about-contents"><main class="content column-page" id="quarto-document-content">
-
-<p>Hello! My name is Yareli Rosales. I am a sophomore Computer Science, Statistics and Data Science major with a Business and Management studies concentration.</p>
-<p>I am interested in careers where business and technology intersect. In Data Science II, which I took with Professor Roith at St.&nbsp;Olaf College, I developed skills in data analysis and working with real-world datasets. This experience strengthened my interest in using data to support decision-making and solve practical problems.</p>
-<p>The code for the website can be found <a href="https://github.com/yareli-rosales/Personal-Website">here</a></p>
-
-
-</main></div>
 </div>
- <!-- /main -->
+<p>We see that most reviews in this dataset come from a small number of brands, suggesting the sample may be concentrated in a few product categories. Most reviews in the dataset come from a small number of brands, particularly Schmidt’s Deodorant and SheaMoisture.</p>
+<section id="string-functions" class="level2">
+<h2 class="anchored" data-anchor-id="string-functions">String Functions</h2>
+<p>How long are review titles and review texts?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>reviews_tidy <span class="ot">&lt;-</span> reviews_tidy <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">title_length =</span> <span class="fu">str_length</span>(review_title),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">review_length =</span> <span class="fu">str_length</span>(review_content))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Because reviews vary widely in length and writing style, the next step is to explore structural features of review text such as length and emotional expression.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>reviews_tidy <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> review_length)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Amazon Review Lengths"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Review Length (characters)"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Reviews"</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" alt="This figure is a histogram showing the distribution of Amazon review lengths. The x-axis represents review length in characters, while the y-axis shows the number of reviews within each length range. Review lengths range from approximately 0 to about 1300 characters, and the number of reviews per bin ranges from 0 to about 16. The histogram shows that most reviews are relatively short, typically under 200–300 characters, while only a few reviews are much longer. Overall, the distribution is right-skewed, indicating that short reviews are far more common than very long ones." width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram above shows the distribution of review lengths in the dataset. Most reviews are relatively short, suggesting that many customers leave brief feedback rather than detailed explanations. However, a small number of longer reviews provide more extensive descriptions of product experiences.While review length provides information about structure, the actual language used in reviews can reveal deeper patterns about customer experiences. To examine the language used in reviews, the next step is to tokenize the review text into individual words.</p>
+</section>
+<section id="text-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="text-analysis">Text Analysis</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>reviews_words <span class="ot">&lt;-</span> reviews_tidy <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, review_content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>To analyze the language used in reviews, I first tokenize the text into individual words using unnest_tokens(). This allows each word to be analyzed separately.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>reviews_words_clean <span class="ot">&lt;-</span> reviews_words <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(word)`</code></pre>
+</div>
+</div>
+<p>Common words such as “the,” “and,” and “is” do not convey meaningful information in text analysis. These words are removed using a standard stop word list.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp1_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The most common words in the reviews highlight recurring themes in customer feedback. Many of the frequently used words relate to product performance, effectiveness, and overall satisfaction. These patterns suggest that customers often focus on practical product outcomes when writing reviews.</p>
+</section>
+<section id="text-analysis-method-2-sentiment-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="text-analysis-method-2-sentiment-analysis">Text Analysis Method #2: Sentiment Analysis</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(word)`</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sentiment_words <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sentiment) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(sentiment, n, <span class="at">fill =</span> sentiment)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Sentiment Distribution in Amazon Reviews"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Sentiment"</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Words"</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp1_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Sentiment analysis provides insight into the emotional tone of the reviews. The results suggest that positive words appear more frequently than negative words in this dataset, indicating that many customers express favorable experiences with the products they review.</p>
+<p>What phrases appear the most</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 144 × 2
+   bigram                      n
+   &lt;chr&gt;                   &lt;int&gt;
+ 1 natural deodorant           3
+ 2 aluminum antiperspirant     2
+ 3 aluminum free               2
+ 4 fabulous fabulous           2
+ 5 highly recommend            2
+ 6 sensitive skin              2
+ 7 10 15                       1
+ 8 15 minutes                  1
+ 9 3 weeks                     1
+10 6oz strong                  1
+# ℹ 134 more rows</code></pre>
+</div>
+</div>
+<p>Examining common word pairs (bigrams) provides additional context beyond single-word analysis. These phrases reveal how customers naturally describe their experiences with products. Many of the most common bigrams involve product performance or descriptive language about effectiveness, suggesting that customers frequently focus on whether a product works as expected.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This analysis explored patterns in Amazon product reviews using text analysis techniques in R. The results show that most reviews are relatively short and focus on practical product experiences. Word frequency analysis highlights common themes in customer feedback, while sentiment analysis suggests that positive language appears more frequently than negative language. Bigram analysis further reveals common phrases customers use when describing product performance. Although the dataset is relatively small, this project demonstrates how text analysis can uncover patterns in customer feedback and provide insight into how consumers communicate their experiences in online reviews.</p>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -334,6 +521,13 @@ ul.task-list li input[type="checkbox"] {
       window.document.body.appendChild(a);
     }
     setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
